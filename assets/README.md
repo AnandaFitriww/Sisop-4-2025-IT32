@@ -86,3 +86,39 @@ int main(int argc, char *argv[]) {
     return fuse_main(argc, argv, &ops, NULL);
 }
 ```
+
+## B. Petunjuk Penggunaan
+### 1. Buat direktori
+```
+mkdir relics mount_dir
+```
+### 2. Kompilasi program
+```
+gcc baymax.c `pkg-config fuse3 --cflags --libs` -o baymax_fs
+```
+### 3. Jalankan filesystem
+```
+./baymax_fs mount_dir
+```
+### 4. Uji Fungsi
+- Gabung file:
+```
+cat mount_dir/Baymax.jpeg > out.jpg
+```
+- Lihat log:
+```
+cat activity.log
+```
+- Tulis file baru:
+```
+echo "Hello Baymax" > mount_dir/hero.txt
+ls relics/hero.txt.*
+```
+- Hapus file:
+```
+rm mount_dir/hero.txt
+```
+- Unmount
+```
+fusermount3 -u mount_dir
+```
